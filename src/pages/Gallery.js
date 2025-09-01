@@ -21,7 +21,7 @@ const Home = () => {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const res = await API.get('/gallery');
+        const res = await API.get('https://alqemahgoldsmith.com/api/gallery');
         setImages(res.data);
       } catch (err) {
         console.error("Error fetching gallery:", err);

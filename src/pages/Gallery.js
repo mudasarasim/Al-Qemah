@@ -56,7 +56,7 @@ const Home = () => {
                     <Card className="h-100 shadow-sm">
                       <div style={{ width: "100%", height: "300px", backgroundColor: "#f8f9fa", display: "flex", alignItems: "center", justifyContent: "center" }}>
                         <Card.Img
-                          src={`https://alqemahgoldsmith.com${img.url}`}
+                          src={`https://alqemahgoldsmith.com/${img.url}`}
                           alt={`Project ${index + 1}`}
                           style={{
                             maxWidth: "100%",

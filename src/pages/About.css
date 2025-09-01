@@ -1,0 +1,190 @@
+/* About.css */
+
+
+.about-header {
+  /* background: url('../assets/Images/g.jpg') no-repeat center center/cover; */
+  height: 60vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-overlay {
+  background-color: rgba(0, 0, 0, 0.6);
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.about-content {
+  text-align: center;
+  color: #fff;
+}
+
+.about-title {
+  font-size: 48px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.about-breadcrumb {
+  font-size: 16px;
+}
+
+.about-arrow {
+  margin: 0 5px;
+}
+
+.about-active {
+  color: #f39c12;
+  font-weight: 600;
+}
+
+/* Main Wrapper */
+.about-wrapper {
+  padding: 50px 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Introduction */
+.about-intro {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.about-intro h2 {
+  font-size: 36px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.about-intro p {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+/* Services */
+.about-services {
+  margin-bottom: 50px;
+}
+
+.about-services h3 {
+  font-size: 30px;
+  text-align: center;
+  margin-bottom: 30px;
+  color: #2c3e50;
+}
+
+.about-service-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.about-service-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+}
+
+.about-service-card img {
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.about-service-card h4 {
+  font-size: 22px;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.about-service-card p {
+  font-size: 16px;
+  color: #555;
+}
+
+/* Team Section */
+.about-team {
+  margin-bottom: 50px;
+}
+
+.about-team h3 {
+  font-size: 30px;
+  text-align: center;
+  margin-bottom: 30px;
+  color: #2c3e50;
+}
+
+.team-content {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.team-content img {
+  width: 300px;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+}
+
+.team-content div {
+  flex: 1;
+}
+
+.team-content p {
+  font-size: 17px;
+  color: #444;
+  margin-bottom: 10px;
+}
+
+/* Footer */
+.about-footer {
+  text-align: center;
+  padding: 30px;
+  background-color: #f5f5f5;
+  border-top: 1px solid #ddd;
+  border-radius: 10px;
+}
+
+.about-footer h5 {
+  font-size: 22px;
+  margin-bottom: 10px;
+  color: #2c3e50;
+}
+
+.about-footer p {
+  font-size: 16px;
+  color: #555;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+  .about-service-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .team-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .team-content img {
+    width: 100%;
+    max-width: 350px;
+  }
+}

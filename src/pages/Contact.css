@@ -1,0 +1,166 @@
+/* Contact.css */
+hr{
+  background-color: black !important;
+  height: 2px;  
+}
+.back{
+  height: 260px !important;
+  background-position: center !important;
+  background-size: cover !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.back h2{
+  color: white;
+  font-size: 44px;
+  font-weight: bold;
+}
+
+.contact-container {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #2c3e50;
+  padding-bottom: 50px;
+  background-color: #f9f9f9;
+}
+
+/* Header Section */
+.contact-header {
+  height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+}
+
+.contact-header .overlay {
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 40px 20px;
+  color: #fff;
+  width: 100%;
+}
+
+.contact-header h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+.contact-header p {
+  font-size: 1.2rem;
+  font-weight: 300;
+}
+
+/* Contact Info Cards */
+.contact-details {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  margin: 40px auto;
+  padding: 0 20px;
+  max-width: 1200px;
+}
+
+.info-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 30px 20px;
+  width: 280px;
+  text-align: center;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.07);
+  transition: transform 0.3s ease;
+}
+
+.info-card:hover {
+  transform: translateY(-5px);
+}
+
+.info-card .icon {
+  font-size: 2rem;
+  color: navy;
+  margin-bottom: 15px;
+}
+
+.info-card h3 {
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+  color: #34495e;
+}
+
+.info-card p {
+  font-size: 1.1rem;
+  color: #555;
+}
+
+/* WhatsApp Section */
+.whatsapp-section {
+  max-width: 700px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 40px 30px;
+  border-radius: 15px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+.whatsapp-section h2 {
+  font-size: 2rem;
+  margin-bottom: 15px;
+  color: navy;
+}
+
+.whatsapp-section p {
+  font-size: 1rem;
+  margin-bottom: 25px;
+  color: #555;
+}
+
+.whatsapp-section textarea {
+  width: 100%;
+  height: 120px;
+  padding: 15px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  resize: none;
+  margin-bottom: 20px;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.whatsapp-btn {
+  background-color:navy;
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.whatsapp-btn:hover {
+  background-color: navy;
+}
+
+.whatsapp-btn svg {
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .contact-header h1 {
+    font-size: 2.3rem;
+  }
+
+  .info-card {
+    width: 90%;
+  }
+
+  .whatsapp-section {
+    padding: 30px 20px;
+  }
+}

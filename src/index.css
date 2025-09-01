@@ -1,0 +1,13 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.navbar-nav .nav-link {
+  font-weight: 500;
+  margin: 0 8px;
+}
+
+.hero form .form-control, .hero form .form-select {
+  height: 40px;
+  font-size: 14px;
+}

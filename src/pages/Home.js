@@ -16,13 +16,13 @@ import 'slick-carousel/slick/slick-theme.css';
 const Home = () => {
   const [steps, setSteps] = useState([]);
   useEffect(() => {
-  axios.get("http://localhost:5000/api/process-steps")
+  axios.get("https://alqemahgoldsmith.com/api/process-steps")
     .then(res => setSteps(res.data))
     .catch(err => console.error("Error fetching steps:", err));
 }, []);
   const [phone1, setPhone1] = useState(""); 
   useEffect(() => {
-  axios.get("http://localhost:5000/api/contact-info")
+  axios.get("https://alqemahgoldsmith.com/api/contact-info")
     .then(res => {
       setPhone1(res.data.phone1);  // phone1 set ho jayega
     })
@@ -33,7 +33,7 @@ const [galleryImages, setGalleryImages] = useState([]);
 
 useEffect(() => {
   // Backend se latest 4 images fetch karo
-  axios.get("http://localhost:5000/api/gallery")
+  axios.get("https://alqemahgoldsmith.com/api/gallery")
     .then(res => setGalleryImages(res.data.slice(0, 4)))
     .catch(err => console.error(err));
 }, []);
@@ -203,7 +203,7 @@ useEffect(() => {
     <Card className="border-0 shadow-sm text-center h-100 d-flex flex-column" style={{ minHeight: "400px" }}>
       <Card.Img
         variant="top"
-        src={`http://localhost:5000${item.img}`}
+        src={`https://alqemahgoldsmith.com${item.img}`}
         alt={item.title}
         className="img-fluid"
         style={{
@@ -255,7 +255,7 @@ useEffect(() => {
         galleryImages.map((img, index) => (
           <Col md={3} sm={6} xs={12} key={index}>
             <img
-              src={`http://localhost:5000${img.url}`} // backend uploads folder ka URL
+              src={`https://alqemahgoldsmith.com${img.url}`} // backend uploads folder ka URL
               alt={`Project ${index + 1}`}
               className="img-fluid rounded shadow-sm"
               style={{ objectFit: 'cover', width: '100%', height: '300px' }}

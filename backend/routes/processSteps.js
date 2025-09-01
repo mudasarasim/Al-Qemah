@@ -1,92 +1,62 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../config/db");
 const multer = require("multer");
 const path = require("path");
+const db = require("../config/db");
 
-// Storage config
+// File upload config
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploads/"); // Upload folder
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname)); // unique filename
-  },
+  destination: (req, file, cb) => cb(null, "uploads/"),
+  filename: (req, file, cb) => cb(null, Date.now() + path.extname(file.originalname)),
 });
-
 const upload = multer({ storage });
 
-// ✅ GET - Fetch all steps
-router.get("/", (req, res) => {
-  const sql = "SELECT * FROM process_steps ORDER BY step_no ASC";
-  db.query(sql, (err, results) => {
-    if (err) {
-      console.error("❌ Error fetching steps:", err);
-      return res.status(500).json({ error: "Failed to fetch steps" });
-    }
-    res.status(200).json(results);
-  });
-});
-
-// ✅ POST - Add new step (with image upload)
-router.post("/", upload.single("image"), (req, res) => {
-  const { step_no, title, description } = req.body;
-  const img = req.file ? `/uploads/${req.file.filename}` : null;
-
-  if (!step_no || !img || !title || !description) {
-    return res
-      .status(400)
-      .json({ error: "All fields (step_no, image, title, description) are required" });
+// 📌 Upload Image API
+router.post("/upload", upload.single("image"), async (req, res) => {
+  try {
+    const imageUrl = `/uploads/${req.file.filename}`;
+    await db.query("INSERT INTO gallery (url) VALUES (?)", [imageUrl]);
+    res.json({ message: "Image uploaded successfully", url: imageUrl });
+  } catch (err) {
+    console.error("❌ Error uploading image:", err);
+    res.status(500).json({ error: "Database error" });
   }
-
-  const sql = "INSERT INTO process_steps (step_no, img, title, description) VALUES (?, ?, ?, ?)";
-  db.query(sql, [step_no, img, title, description], (err, result) => {
-    if (err) {
-      console.error("❌ Error inserting step:", err);
-      return res.status(500).json({ error: "Failed to add step" });
-    }
-    res.status(201).json({ message: "✅ Step added successfully", id: result.insertId });
-  });
 });
 
-// ✅ PUT - Update step (with optional image)
-router.put("/:id", upload.single("image"), (req, res) => {
-  const { id } = req.params;
-  const { step_no, title, description } = req.body;
-  const img = req.file ? `/uploads/${req.file.filename}` : req.body.img; // fallback if no new image
-
-  if (!step_no || !title || !description) {
-    return res.status(400).json({ error: "step_no, title and description are required" });
+// 📌 Get All Images API
+router.get("/", async (req, res) => {
+  try {
+    const [results] = await db.query("SELECT * FROM gallery ORDER BY id DESC");
+    res.json(results);
+  } catch (err) {
+    console.error("❌ Error fetching gallery:", err);
+    res.status(500).json({ error: "Database error" });
   }
-
-  const sql = "UPDATE process_steps SET step_no=?, img=?, title=?, description=? WHERE id=?";
-  db.query(sql, [step_no, img, title, description, id], (err, result) => {
-    if (err) {
-      console.error("❌ Error updating step:", err);
-      return res.status(500).json({ error: "Failed to update step" });
-    }
-    if (result.affectedRows === 0) {
-      return res.status(404).json({ error: "Step not found" });
-    }
-    res.status(200).json({ message: "✅ Step updated successfully" });
-  });
 });
 
-// ✅ DELETE - Remove step
-router.delete("/:id", (req, res) => {
-  const { id } = req.params;
+// 📌 Delete Image API
+router.delete("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    await db.query("DELETE FROM gallery WHERE id = ?", [id]);
+    res.json({ message: "Image deleted successfully" });
+  } catch (err) {
+    console.error("❌ Error deleting image:", err);
+    res.status(500).json({ error: "Database error" });
+  }
+});
 
-  const sql = "DELETE FROM process_steps WHERE id=?";
-  db.query(sql, [id], (err, result) => {
-    if (err) {
-      console.error("❌ Error deleting step:", err);
-      return res.status(500).json({ error: "Failed to delete step" });
-    }
-    if (result.affectedRows === 0) {
-      return res.status(404).json({ error: "Step not found" });
-    }
-    res.status(200).json({ message: "✅ Step deleted successfully" });
-  });
+// 📌 Update (Replace) Image API
+router.put("/update/:id", upload.single("image"), async (req, res) => {
+  try {
+    const { id } = req.params;
+    const newUrl = `/uploads/${req.file.filename}`;
+    await db.query("UPDATE gallery SET url = ? WHERE id = ?", [newUrl, id]);
+    res.json({ message: "Image updated successfully", url: newUrl });
+  } catch (err) {
+    console.error("❌ Error updating image:", err);
+    res.status(500).json({ error: "Database error" });
+  }
 });
 
 module.exports = router;

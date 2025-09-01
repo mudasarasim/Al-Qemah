@@ -8,7 +8,7 @@ import axios from "axios";
 const Home = () => {
   const [phone1, setPhone1] = useState(""); 
   useEffect(() => {
-  axios.get("http://localhost:5000/api/contact-info")
+  axios.get("https://alqemahgoldsmith.com/api/contact-info")
     .then(res => {
       setPhone1(res.data.phone1);  // phone1 set ho jayega
     })
@@ -56,7 +56,7 @@ const Home = () => {
                     <Card className="h-100 shadow-sm">
                       <div style={{ width: "100%", height: "300px", backgroundColor: "#f8f9fa", display: "flex", alignItems: "center", justifyContent: "center" }}>
                         <Card.Img
-                          src={`http://localhost:5000${img.url}`}
+                          src={`https://alqemahgoldsmith.com${img.url}`}
                           alt={`Project ${index + 1}`}
                           style={{
                             maxWidth: "100%",

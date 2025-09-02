@@ -35,25 +35,7 @@ const [editingStep, setEditingStep] = useState(null);
   const navigate = useNavigate();
 
   // Fetch Dashboard Data
-  useEffect(() => {
-    const fetchDashboard = async () => {
-      try {
-        const res = await API.get("/admin/dashboard", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
-        setData(res.data);
-      } catch (err) {
-        console.log("Not authorized", err);
-        navigate("/admin/login");
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchDashboard();
-  }, [navigate]);
-
+ 
   // ✅ Sidebar change triggers
   useEffect(() => {
     if (activePage === "gallery") fetchGallery();

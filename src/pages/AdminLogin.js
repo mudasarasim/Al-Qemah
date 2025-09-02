@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import API from "../api";
 import { useNavigate } from "react-router-dom";
 
 function AdminLogin() {
@@ -8,14 +7,15 @@ function AdminLogin() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
-    try {
-      const res = await API.post("/auth/login", { username, password });
-      localStorage.setItem("token", res.data.token);
+
+    // ✅ Hardcoded admin check
+    if (username === "admin" && password === "12345") {
+      localStorage.setItem("isAdmin", "true"); // Optional: for protected routes
       navigate("/admin/dashboard");
-    } catch (err) {
-      setError(err.response?.data?.message || "Login failed");
+    } else {
+      setError("Invalid username or password");
     }
   };
 

@@ -1,0 +1,89 @@
+/* Container */
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ background: linear-gradient(135deg, #a06227, #4b2e15);
+
+  font-family: Arial, sans-serif;
+}
+
+/* Card */
+.login-card {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.4);
+  width: 100%;
+  max-width: 400px;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Title */
+.login-title {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #1f2937; /* dark gray */
+}
+
+/* Error */
+.login-error {
+  color: red;
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+/* Form */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Inputs */
+.login-input {
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.login-input:focus {
+  border-color: #2563eb; /* blue border */
+  outline: none;
+  box-shadow: 0px 0px 6px rgba(37, 99, 235, 0.4);
+  transform: scale(1.02);
+}
+
+/* Button */
+.login-button {
+  padding: 12px;
+  background: #a06227;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.login-button:hover {
+  background: #6c421b; /* darker blue */
+  transform: scale(1.03);
+}
+
+/* Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./AdminLogin.css"; // custom CSS import
 
 function AdminLogin() {
   const [username, setUsername] = useState("");
@@ -7,108 +8,52 @@ function AdminLogin() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
-    // ✅ Hardcoded admin check
-    if (username === "admin" && password === "12345") {
-      localStorage.setItem("isAdmin", "true"); // Optional: for protected routes
-      navigate("/admin/dashboard");
-    } else {
-      setError("Invalid username or password");
+    try {
+      const res = await fetch("https://alqemahgoldsmith.com/api/admin/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        navigate("/admin/dashboard");
+      } else {
+        setError(data.message);
+      }
+    } catch (err) {
+      setError("⚠️ Server error, try again later.");
     }
   };
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        background: "linear-gradient(135deg, #ead466ff, #3e3e3cff)",
-      }}
-    >
-      <div
-        style={{
-          background: "#fff",
-          padding: "40px",
-          borderRadius: "12px",
-          boxShadow: "0 8px 20px rgba(0,0,0,0.15)",
-          width: "100%",
-          maxWidth: "400px",
-          textAlign: "center",
-        }}
-      >
-        <h2 style={{ marginBottom: "20px", color: "#333" }}>🔐 Admin Login</h2>
+    <div className="login-container">
+      <div className="login-card">
+        <h2 className="login-title">Admin Login</h2>
+        {error && <p className="login-error">{error}</p>}
 
-        {error && (
-          <p
-            style={{
-              background: "#ffe0e0",
-              color: "#d9534f",
-              padding: "10px",
-              borderRadius: "8px",
-              marginBottom: "15px",
-              fontSize: "14px",
-            }}
-          >
-            {error}
-          </p>
-        )}
-
-        <form onSubmit={handleLogin}>
+        <form onSubmit={handleLogin} className="login-form">
           <input
             type="text"
-            placeholder="Username"
+            placeholder="Enter Username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            style={{
-              width: "100%",
-              padding: "12px",
-              margin: "10px 0",
-              borderRadius: "8px",
-              border: "1px solid #ccc",
-              fontSize: "14px",
-              outline: "none",
-            }}
+            required
+            className="login-input"
           />
           <input
             type="password"
-            placeholder="Password"
+            placeholder="Enter Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            style={{
-              width: "100%",
-              padding: "12px",
-              margin: "10px 0",
-              borderRadius: "8px",
-              border: "1px solid #ccc",
-              fontSize: "14px",
-              outline: "none",
-            }}
+            required
+            className="login-input"
           />
-          <button
-            type="submit"
-            style={{
-              width: "100%",
-              padding: "12px",
-              background: "#eaba66ff",
-              color: "#fff",
-              fontSize: "16px",
-              fontWeight: "bold",
-              border: "none",
-              borderRadius: "8px",
-              cursor: "pointer",
-              transition: "0.3s",
-            }}
-            onMouseOver={(e) =>
-              (e.target.style.background = "#d6c756ff")
-            }
-            onMouseOut={(e) =>
-              (e.target.style.background = "#b9b310ff")
-            }
-          >
+          <button type="submit" className="login-button">
             Login
           </button>
         </form>

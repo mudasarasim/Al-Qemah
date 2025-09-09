@@ -16,7 +16,7 @@ const Footer = () => {
   const [contact, setContact] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/contact")
+    fetch("https://alqemahgoldsmith.com/api/contact")
       .then((res) => res.json())
       .then((data) => setContact(data))
       .catch((err) => console.error("Error fetching contact info:", err));

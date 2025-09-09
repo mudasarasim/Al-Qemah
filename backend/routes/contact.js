@@ -2,11 +2,13 @@ const express = require("express");
 const router = express.Router();
 const db = require("../config/db");
 
-// 👉 Get Contact Info
+// 👉 Get Contact Info (Always return id=1)
 router.get("/", async (req, res) => {
   try {
-    const [rows] = await db.promise().query("SELECT * FROM contact_info LIMIT 1");
-    if (rows.length === 0) return res.json({});
+    const [rows] = await db.promise().query("SELECT * FROM contact_info WHERE id=1 LIMIT 1");
+    if (rows.length === 0) {
+      return res.json({});
+    }
     res.json(rows[0]);
   } catch (err) {
     console.error(err);
@@ -14,25 +16,25 @@ router.get("/", async (req, res) => {
   }
 });
 
-// 👉 Update or Insert Contact Info (Admin)
-router.put("/:id", async (req, res) => {
+// 👉 Update Contact Info (Always update id=1, create if not exists)
+router.put("/", async (req, res) => {
   try {
     const { address, phone1, phone2, email1, email2, whatsapp } = req.body;
-    const id = req.params.id;
 
-    const [rows] = await db.promise().query("SELECT * FROM contact_info WHERE id=?", [id]);
+    // Check if id=1 exists
+    const [rows] = await db.promise().query("SELECT * FROM contact_info WHERE id=1 LIMIT 1");
 
     if (rows.length === 0) {
-      // Insert if not exists
+      // Insert new row if not exists
       await db.promise().query(
-        "INSERT INTO contact_info (id, address, phone1, phone2, email1, email2, whatsapp) VALUES (?, ?, ?, ?, ?, ?, ?)",
-        [id, address, phone1, phone2 || null, email1, email2 || null, whatsapp || null]
+        "INSERT INTO contact_info (id, address, phone1, phone2, email1, email2, whatsapp) VALUES (1, ?, ?, ?, ?, ?, ?)",
+        [address, phone1, phone2 || null, email1, email2 || null, whatsapp || null]
       );
     } else {
       // Update existing
       await db.promise().query(
-        "UPDATE contact_info SET address=?, phone1=?, phone2=?, email1=?, email2=?, whatsapp=? WHERE id=?",
-        [address, phone1, phone2 || null, email1, email2 || null, whatsapp || null, id]
+        "UPDATE contact_info SET address=?, phone1=?, phone2=?, email1=?, email2=?, whatsapp=? WHERE id=1",
+        [address, phone1, phone2 || null, email1, email2 || null, whatsapp || null]
       );
     }
 

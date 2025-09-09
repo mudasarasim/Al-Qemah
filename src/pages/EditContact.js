@@ -18,7 +18,7 @@ function EditContact() {
   // Fetch contact info
   const fetchContact = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/contact");
+      const res = await fetch("https://alqemahgoldsmith.com/api/contact");
       const data = await res.json();
       setContact(data);
     } catch (err) {
@@ -34,7 +34,7 @@ function EditContact() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`http://localhost:5000/api/contact/${contactId}`, {
+      const res = await fetch(`https://alqemahgoldsmith.com/api/contact/${contactId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(contact),
